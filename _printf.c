@@ -30,7 +30,6 @@ int print_string(va_list args)
 	{
 		str = "(null)";
 	}
-
 	while (*str)
 	{
 		count += write(1, str++, 1);
@@ -59,8 +58,7 @@ int print_percent(void)
 
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int count = 0;
+	va_list args, int count = 0;
 
 	if (!format)
 	{
@@ -77,15 +75,10 @@ int _printf(const char *format, ...)
 			{
 				return (-1);
 			}
-
 			if (*format == 'c')
-			{
 				count += print_char(args);
-			}
 			else if (*format == 's')
-			{
 				count += print_string(args);
-			}
 			else if (*format == '%')
 			{
 				count += print_percent();
