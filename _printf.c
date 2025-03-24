@@ -47,6 +47,10 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
+			if (*format == '\0')
+			{
+				break;
+			}
 			if (*format == '%')
 			{
 				putchar('%');
@@ -65,8 +69,7 @@ int _printf(const char *format, ...)
 			}
 			else
 			{
-				format++;
-				count++;
+				continue;
 			}
 		}
 		else
