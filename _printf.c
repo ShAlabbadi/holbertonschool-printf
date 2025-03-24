@@ -5,7 +5,7 @@
 /**
  * _s - Function to print a string.
  * @args: List of arguments from _printf.
- *
+ * @count: to count the len of the str
  * Description: Extracts a string argument from the variable argument list
  * and prints it. If the string is NULL, it prints "(null)" instead.
  */
@@ -41,16 +41,12 @@ int _printf(const char *format, ...)
 	int count = 0;
 
 	va_start(args, format);
-
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
-			if (*format == '\0')
-			{
-				break;
-			}
+
 			if (*format == '%')
 			{
 				putchar('%');
@@ -82,4 +78,3 @@ int _printf(const char *format, ...)
 	va_end(args);
 	return (count);
 }
-
