@@ -58,7 +58,8 @@ int print_percent(void)
 
 int _printf(const char *format, ...)
 {
-	va_list args, int count = 0;
+	va_list args;
+	int count = 0;
 
 	if (!format)
 	{
@@ -80,9 +81,7 @@ int _printf(const char *format, ...)
 			else if (*format == 's')
 				count += print_string(args);
 			else if (*format == '%')
-			{
 				count += print_percent();
-			}
 			else
 			{
 				count += write(1, "%", 1);
