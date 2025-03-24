@@ -46,7 +46,11 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-
+			if (*format == '%')
+			{
+				va_end(args);
+				return(count);
+			}
 			if (*format == '%')
 			{
 				putchar('%');
