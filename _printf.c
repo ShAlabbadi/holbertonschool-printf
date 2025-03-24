@@ -9,7 +9,7 @@
  * Description: Extracts a string argument from the variable argument list
  * and prints it. If the string is NULL, it prints "(null)" instead.
  */
-void _s(va_list args)
+void _s(va_list args, int *count)
 {
 
 	char *str = va_arg(args, char*);
@@ -21,6 +21,7 @@ void _s(va_list args)
 	while (*str)
 	{
 		putchar (*str);
+		(*count)++;
 		str++;
 	}
 }
@@ -37,6 +38,7 @@ void _s(va_list args)
 int _printf(const char *format, ...)
 {
 	va_list args;
+	int count = 0;
 
 	va_start(args, format);
 
@@ -48,30 +50,34 @@ int _printf(const char *format, ...)
 			if (*format == '%')
 			{
 				putchar('%');
+				count++;
 			}
 			else if (*format == 'c')
 			{
 				int ch = va_arg(args, int);
 
 				putchar(ch);
+				count++;
 			}
 			else if (*format == 's')
 			{
-				_s(args);
+				_s(args, &count);
 			}
 			else
 			{
 				putchar('%');
 				putchar(*format);
+				count += 2;
 			}
 		}
 		else
 		{
 			putchar(*format);
+			count++;
 		}
 		format++;
 	}
 	va_end(args);
-	return (0);
+	return (count);
 }
 
