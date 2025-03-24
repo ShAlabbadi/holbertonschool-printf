@@ -1,8 +1,9 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void _s(va_list args, int *count);
-
+int print_char(va_list args);
+int print_string(va_list args);
+int print_percent(void);
 int _printf(const char *format, ...);
 
 #endif
