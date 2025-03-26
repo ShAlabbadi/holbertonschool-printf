@@ -9,23 +9,36 @@
  *
  * Return: Number of characters printed.
  */
-void print_number(int n)
+int print_number(va_list args)
 {
-	if (n == INT_MIN)
+	int n = va_arg(args, int);
+	int count = 0;
+	char buffer[20];
+	int i = 0;
+
+	if (n == 0)
 	{
-		write(1, "-2147483648", 11);
-		return;
+		return (write(1, "0", 1));
 	}
+
 	if (n < 0)
 	{
-		putchar('-');
+		count += write(1, "-", 1);
 		n = -n;
 	}
-	if (n / 10)
+
+	while (n > 0)
 	{
-		print_number(n / 10);
+		buffer[i++] = (n % 10) + '0';
+		n /= 10;
 	}
-	putchar(n % 10 + '0');
+
+	while (i > 0)
+	{
+		count += write(1, &buffer[--i], 1);
+	}
+
+	return (count);
 }
 /**
 * print_char - Prints a single character.
@@ -102,11 +115,7 @@ int _printf(const char *format, ...)
 			else if (*format == '%')
 				count += print_percent();
 			else if (*format == 'i' || *format == 'd')
-			{
-				int n = va_arg(args, int);
-				print_number(n);
-				count++;
-			}
+				count += print_number(args);
 			else
 			{
 				count += write(1, "%", 1);
