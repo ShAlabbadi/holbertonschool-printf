@@ -32,7 +32,7 @@ int print_number(va_list args)
 		num = (unsigned int)n;
 	}
 
-	while (n > 0)
+	while (num > 0)
 	{
 		buffer[i++] = (n % 10) + '0';
 		n /= 10;
