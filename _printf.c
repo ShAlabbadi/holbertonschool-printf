@@ -1,6 +1,45 @@
-#include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdio.h>
+#include "main.h"
+
+/**
+ * print_number - Prints an integer.
+ * @args: The argument list containing the integer.
+ *
+ * Return: Number of characters printed.
+ */
+int print_number(va_list args)
+{
+	int n = va_arg(args, int);
+	int count = 0;
+	char buffer[20];
+	int i = 0;
+
+	if (n == 0)
+	{
+		return (write(1, "0", 1));
+	}
+
+	if (n < 0)
+	{
+		count += write(1, "-", 1);
+		n = -n;
+	}
+
+	while (n > 0)
+	{
+		buffer[i++] = (n % 10) + '0';
+		n /= 10;
+	}
+
+	while (i > 0)
+	{
+		count += write(1, &buffer[--i], 1);
+	}
+
+	return (count);
+}
 /**
 * print_char - Prints a single character.
 * @args: The argument list containing the character.
@@ -36,13 +75,6 @@ int print_string(va_list args)
 	}
 	return (count);
 }
-
-/**
-* print_percent - Prints a literal percent sign.
-*
-* Return: Number of characters printed.
-*/
-
 
 int print_percent(void)
 {
@@ -82,6 +114,8 @@ int _printf(const char *format, ...)
 				count += print_string(args);
 			else if (*format == '%')
 				count += print_percent();
+			else if (*format == 'i' || *format == 'd')
+				count += print_number(args);
 			else
 			{
 				count += write(1, "%", 1);
@@ -97,3 +131,4 @@ int _printf(const char *format, ...)
 	va_end(args);
 	return (count);
 }
+
