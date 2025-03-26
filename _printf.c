@@ -2,43 +2,30 @@
 #include <unistd.h>
 #include <stdio.h>
 #include "main.h"
-
+#include <limits.h>
 /**
  * print_number - Prints an integer.
  * @args: The argument list containing the integer.
  *
  * Return: Number of characters printed.
  */
-int print_number(va_list args)
+void print_number(int n)
 {
-	int n = va_arg(args, int);
-	int count = 0;
-	char buffer[20];
-	int i = 0;
-
-	if (n == 0)
+	if (n == INT_MIN)
 	{
-		return (write(1, "0", 1));
+		write(1, "-2147483648", 11);
+		return;
 	}
-
 	if (n < 0)
 	{
-		count += write(1, "-", 1);
+		putchar('-');
 		n = -n;
 	}
-
-	while (n > 0)
+	if (n / 10)
 	{
-		buffer[i++] = (n % 10) + '0';
-		n /= 10;
+		print_number(n / 10);
 	}
-
-	while (i > 0)
-	{
-		count += write(1, &buffer[--i], 1);
-	}
-
-	return (count);
+	putchar(n % 10 + '0');
 }
 /**
 * print_char - Prints a single character.
@@ -115,7 +102,11 @@ int _printf(const char *format, ...)
 			else if (*format == '%')
 				count += print_percent();
 			else if (*format == 'i' || *format == 'd')
-				count += print_number(args);
+			{
+				int n = va_arg(args, int);
+				print_number(n);
+				count++;
+			}
 			else
 			{
 				count += write(1, "%", 1);
