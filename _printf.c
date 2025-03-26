@@ -15,6 +15,7 @@ int print_number(va_list args)
 	int count = 0;
 	char buffer[20];
 	int i = 0;
+	unsigned int num;
 
 	if (n == 0)
 	{
@@ -24,7 +25,11 @@ int print_number(va_list args)
 	if (n < 0)
 	{
 		count += write(1, "-", 1);
-		n = -n;
+		num = (unsigned int)(-n);
+	}
+	else
+	{
+		num = (unsigned int)n;
 	}
 
 	while (n > 0)
