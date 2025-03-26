@@ -21,21 +21,24 @@ int print_number(va_list args)
 	{
 		return (write(1, "0", 1));
 	}
-
+	if (n == INT_MIN)
+	{
+		return write(1, "-2147483648", 11);
+	}
 	if (n < 0)
 	{
 		count += write(1, "-", 1);
-		num = (unsigned int)(-n);
+		num = -n;
 	}
 	else
 	{
-		num = (unsigned int)n;
+		num = n;
 	}
 
 	while (num > 0)
 	{
-		buffer[i++] = (n % 10) + '0';
-		n /= 10;
+		buffer[i++] = (num % 10) + '0';
+		num /= 10;
 	}
 
 	while (i > 0)
