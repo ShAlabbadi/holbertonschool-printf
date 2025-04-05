@@ -1,4 +1,4 @@
-.Dd Mar 28, 2025
+.Dd April 5, 2025
 .Dt _PRINTF 3
 .Os
 .Sh NAME
@@ -75,4 +75,3 @@ Shurooq Alabbadi
 .Xr va_start 3 ,
 .Xr va_arg 3 ,
 .Xr va_end 3
-
